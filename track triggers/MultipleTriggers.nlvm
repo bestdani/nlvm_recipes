@@ -10,7 +10,7 @@ public class MultipleTriggers extends Script implements TrackTriggerListener {
         // Get the coaster in the park by its name (will cause null pointer exceptions in the next section if coaster name does not exist)
         Coaster coaster = sim.getCoaster("Coaster Name");
 
-        // Get the coaster in the park by its name (will cause null pointer exceptions in the next section if both trigger names doe not exist)
+        // Get the coaster in the park by its name (will cause null pointer exceptions in the next section if both trigger names do not exist)
         triggerA = coaster.getTrackTrigger("Trigger A Name");
         triggerB = coaster.getTrackTrigger("Trigger B Name");
 
