@@ -1,0 +1,40 @@
+import com.nolimitscoaster.*;
+import nlvm.lang.System;
+
+public class MultipleTriggers extends Script implements TrackTriggerListener {
+    // TrackTriggers will be stored here for access from all methods in this class
+    private TrackTrigger triggerA;
+    private TrackTrigger triggerB;
+
+    public bool onInit() {
+        // Get the coaster in the park by its name (will cause null pointer exceptions in the next section if coaster name does not exist)
+        Coaster coaster = sim.getCoaster("Coaster Name");
+
+        // Get the coaster in the park by its name (will cause null pointer exceptions in the next section if both trigger names doe not exist)
+        triggerA = coaster.getTrackTrigger("Trigger A Name");
+        triggerB = coaster.getTrackTrigger("Trigger B Name");
+
+        // Register this script as a track trigger listener for both triggers
+        triggerA.addTrackTriggerListener(this);
+        triggerB.addTrackTriggerListener(this);
+
+        // This script does not need to be called back every frame and thus does not need to register as a frame lister, therefore it can return false.
+        return false;
+    }
+
+    public void onTrainEntering(TrackTrigger trigger, Train train) {
+        if(trigger == triggerA){
+            System.out.println("Trigger A entered");
+        }else if(trigger == triggerB){
+            System.out.println("Trigger B entered");
+        }
+    }
+
+    public void onTrainLeaving(TrackTrigger trigger, Train train) {
+        if(trigger == triggerA){
+            System.out.println("Trigger A left");
+        }else if(trigger == triggerB){
+            System.out.println("Trigger B left");
+        }
+    }
+}
