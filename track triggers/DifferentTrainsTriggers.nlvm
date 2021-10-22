@@ -1,0 +1,34 @@
+import com.nolimitscoaster.*;
+import nlvm.lang.System;
+
+public class DifferentTrainsTriggers extends Script implements TrackTriggerListener {
+    // Coaster will be stored here for access from all methods in this class.
+    private Coaster coaster;
+
+    public bool onInit() {
+        // Get the coaster in the park by its name (will cause null pointer exceptions in the next section if coaster name does not exist).
+        coaster = sim.getCoaster("Coaster Name");
+
+        // Register this script as a track trigger listener (will cause null pointer exceptions if the track trigger name does not exist on the coaster).
+        coaster.getTrackTrigger("Trigger Name").addTrackTriggerListener(this);
+
+        // This script does not need to be called back every frame and thus does not need to register as a frame lister, therefore it can return false.
+        return false;
+    }
+
+    public void onTrainEntering(TrackTrigger trigger, Train train) {
+        for (int i = 0; i < coaster.getTrainCount(); ++i) {
+            if (coaster.getTrainAt(i) == train) {
+                System.out.println("Train number " + (i + 1) + " entered.");
+            }
+        }
+    }
+
+    public void onTrainLeaving(TrackTrigger trigger, Train train) {
+        for (int i = 0; i < coaster.getTrainCount(); ++i) {
+            if (coaster.getTrainAt(i) == train) {
+                System.out.println("Train number " + (i + 1) + " left.");
+            }
+        }
+    }
+}
