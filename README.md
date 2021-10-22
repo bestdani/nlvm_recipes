@@ -1,2 +1,2 @@
-# nlvm_recipes
-Recipes for common Scripting Task using the NLVM Scripting language for https://nolimitscoaster.com
+# NLVM Recipes
+Recipes for common Scripting tasks using the NLVM Scripting language for https://nolimitscoaster.com
