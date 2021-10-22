@@ -23,17 +23,17 @@ public class MultipleTriggers extends Script implements TrackTriggerListener {
     }
 
     public void onTrainEntering(TrackTrigger trigger, Train train) {
-        if(trigger == triggerA){
+        if (trigger == triggerA) {
             System.out.println("Trigger A entered");
-        }else if(trigger == triggerB){
+        } else if (trigger == triggerB) {
             System.out.println("Trigger B entered");
         }
     }
 
     public void onTrainLeaving(TrackTrigger trigger, Train train) {
-        if(trigger == triggerA){
+        if (trigger == triggerA) {
             System.out.println("Trigger A left");
-        }else if(trigger == triggerB){
+        } else if (trigger == triggerB) {
             System.out.println("Trigger B left");
         }
     }
