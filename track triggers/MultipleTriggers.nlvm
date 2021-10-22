@@ -1,5 +1,5 @@
 import com.nolimitscoaster.*;
-import nlvm.lang.System;
+import nlvm.lang.*;
 
 public class MultipleTriggers extends Script implements TrackTriggerListener {
     // TrackTriggers will be stored here for access from all methods in this class

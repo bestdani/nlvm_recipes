@@ -1,8 +1,5 @@
-import com.nolimitscoaster.Script;
-import com.nolimitscoaster.TrackTrigger;
-import com.nolimitscoaster.TrackTriggerListener;
-import com.nolimitscoaster.Train;
-import nlvm.lang.System;
+import com.nolimitscoaster.*;
+import nlvm.lang.*;
 
 public class HelloTrackTriggers extends Script implements TrackTriggerListener {
     public bool onInit() {
