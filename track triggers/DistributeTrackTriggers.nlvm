@@ -1,0 +1,49 @@
+import com.nolimitscoaster.*;
+import nlvm.lang.System;
+import nlvm.math3d.Vector3f;
+
+public class DistributeTrackTriggers extends Script implements TrackTriggerListener {
+    /**
+     * Distributes track triggers along a track and prints information to the nl2 console.
+     * <p>
+     * Example output:
+     * ---------------------
+     * [DistributeTrackTriggers] Trigger Index 0: Triggered at 0.697007399840091
+     * [DistributeTrackTriggers] Trigger Index 1: Triggered at 0.914218641215224
+     * [DistributeTrackTriggers] Trigger Index 2: Triggered at 1.14748622925288
+     * [DistributeTrackTriggers] Trigger Index 3: Triggered at 1.38048030659957
+     * [DistributeTrackTriggers] Trigger Index 4: Triggered at 1.59671376033004
+     * [DistributeTrackTriggers] Trigger Index 5: Triggered at 1.83052073087343
+     * [DistributeTrackTriggers] Trigger Index 6: Triggered at 2.04686591805296
+     */
+
+    private static final String COASTER_NAME = "Coaster Name";
+    private static final float METERS_FROM_FIRST_CAR_TO_FIRST_TRACK_TRIGGER = 1.5f;
+    private static final float METERS_BETWEEN_TRACK_TRIGGERS = 0.5f;
+    private static final int TRACK_TRIGGERS_COUNT = 100;
+
+    private int triggerCounter = 0;
+
+    public bool onInit() {
+        Vector3f firstCarPosition = new Vector3f();
+        Coaster coaster = sim.getCoaster(COASTER_NAME);
+        coaster.getTrainAt(0).getCarOrientationAndPosition(0, null, null, null, firstCarPosition);
+        TrackPos trackPos = coaster.findNearestTrack(firstCarPosition, 1);
+
+        for (int i = 0; i < TRACK_TRIGGERS_COUNT; ++i) {
+            TrackTrigger.createTrackTriggerAtOffset(trackPos, METERS_FROM_FIRST_CAR_TO_FIRST_TRACK_TRIGGER + METERS_BETWEEN_TRACK_TRIGGERS * i).addTrackTriggerListener(this);
+        }
+
+        // no need to register this script as a frame listener
+        return false;
+    }
+
+    public void onTrainEntering(TrackTrigger trigger, Train train) {
+        double timeEntered = sim.getCurAbsSimulationTimeSec();
+        System.out.println("[DistributeTrackTriggers] Trigger Index " + triggerCounter % TRACK_TRIGGERS_COUNT + ": Triggered at " + timeEntered);
+        triggerCounter++;
+    }
+
+    public void onTrainLeaving(TrackTrigger trigger, Train train) {
+    }
+}
